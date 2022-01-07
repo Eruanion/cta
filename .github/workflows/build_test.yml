@@ -66,3 +66,6 @@ jobs:
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
     - name: Test
       run: dotnet test --configuration Release --no-restore --verbosity normal src/CTA.Rules.sln
+    - name: Pack
+      if: ${{ github.event_name == 'push' }}
+      run: dotnet pack --configuration Release --no-restore -o dist src/Codelyzer.sln
